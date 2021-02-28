@@ -35,19 +35,11 @@ fun main() {
 
     val Y = FloatArray(8) { YFind(a0, a1, a2, a3, X1[it].toFloat(), X2[it].toFloat(), X3[it].toFloat()) }
 
-    val x01 = x0Find(X1)
-    val x02 = x0Find(X2)
-    val x03 = x0Find(X3)
+    val x0 = floatArrayOf(x0Find(X1), x0Find(X2), x0Find(X3))
+    val dx = floatArrayOf(dxFind(x0[0], X1), dxFind(x0[1], X2), dxFind(x0[2], X3))
+    val Xn = arrayOf(xNormArrayFind(x0[0], dx[0], X1), xNormArrayFind(x0[1], dx[1], X2), xNormArrayFind(x0[2], dx[2], X3))
 
-    val dx1 = dxFind(x01, X1)
-    val dx2 = dxFind(x02, X2)
-    val dx3 = dxFind(x03, X3)
-
-    val Xn1 = xNormArrayFind(x01, dx1, X1)
-    val Xn2 = xNormArrayFind(x02, dx2, X2)
-    val Xn3 = xNormArrayFind(x03, dx3, X3)
-
-    val Yet = YFind(a0, a1, a2, a3, x01, x02, x03)
+    val Yet = YFind(a0, a1, a2, a3, x0[0], x0[1], x0[2])
 
     val optimalPointOfX1 = X1[Y.indexOfFirst { it == maxYFind(Y) }]
     val optimalPointOfX2 = X2[Y.indexOfFirst { it == maxYFind(Y) }]
@@ -70,21 +62,21 @@ fun main() {
                 "${X2[i].toString().padEnd(5)} |  " +
                 "${X3[i].toString().padEnd(5)} |  " +
                 "${Y[i].toString().padEnd(7)} |  " +
-                "${String.format("%.4f", Xn1[i]).padEnd(9)} |  " +
-                "${String.format("%.4f", Xn2[i]).padEnd(9)} |  " +
-                String.format("%.4f", Xn3[i])
+                "${String.format("%.4f", Xn[0][i]).padEnd(9)} |  " +
+                "${String.format("%.4f", Xn[1][i]).padEnd(9)} |  " +
+                String.format("%.4f", Xn[2][i])
         )
     }
 
     println("${"x0".padEnd(2)} |  " +
-            "${x01.toString().padEnd(5)} |  " +
-            "${x02.toString().padEnd(5)} |  " +
-            "${x03.toString().padEnd(5)} |  ")
+            "${x0[0].toString().padEnd(5)} |  " +
+            "${x0[1].toString().padEnd(5)} |  " +
+            "${x0[2].toString().padEnd(5)} |  ")
 
     println("${"dx".padEnd(2)} |  " +
-            "${dx1.toString().padEnd(5)} |  " +
-            "${dx2.toString().padEnd(5)} |  " +
-            "${dx3.toString().padEnd(5)} |")
+            "${dx[0].toString().padEnd(5)} |  " +
+            "${dx[1].toString().padEnd(5)} |  " +
+            "${dx[2].toString().padEnd(5)} |")
 
     println("\nYet = $Yet")
     println("Selection criterion: max(Y). Optimal point: ($optimalPointOfX1, $optimalPointOfX2, $optimalPointOfX3)")
