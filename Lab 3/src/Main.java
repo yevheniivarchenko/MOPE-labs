@@ -302,7 +302,7 @@ class Experiment {
 
 public class Main {
     public static void main(String[] args) {
-        Experiment experiment = new Experiment(-20, 15, -35, 10, 10, 20);
+        Experiment experiment = new Experiment(-20, 30, -20, 40, -20, -10);
         experiment.calculate();
     }
 }
