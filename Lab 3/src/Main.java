@@ -153,15 +153,15 @@ class Experiment {
             System.out.println();
         }
 
-        double[] Sigma = new double[4];
-        double[] Sigma_round = Sigma;
+        double[] sigma = new double[4];
+        double[] sigmaRound = sigma;
 
         for (int i = 0; i < 4; i++) {
             for (int j = 3; j < 8; j++)
-                Sigma[i] += (averageY[i] - plan[i][j]) * (averageY[i] - plan[i][j]);
+                sigma[i] += (averageY[i] - plan[i][j]) * (averageY[i] - plan[i][j]);
 
-            Sigma[i] /= 5.0;
-            Sigma_round[i] = Math.round(Sigma[i] * 100) / 100.0;
+            sigma[i] /= 5.0;
+            sigmaRound[i] = Math.round(sigma[i] * 100) / 100.0;
         }
 
         System.out.println("\nСереднє Yi:");
@@ -172,13 +172,13 @@ class Experiment {
         System.out.print("\nДисперсії: ");
 
         for (int i = 0; i < 4; i++)
-            System.out.printf("D(Y%d) = %f", i + 1, Sigma_round[i]);
+            System.out.printf("D(Y%d) = %f", i + 1, sigmaRound[i]);
 
-        Sigma_round = Sigma;
+        sigmaRound = sigma;
 
-        Arrays.sort(Sigma_round);
+        Arrays.sort(sigmaRound);
 
-        double Gp = Sigma_round[3] / (Sigma[0] + Sigma[1] + Sigma[2] + Sigma[3]);
+        double Gp = sigmaRound[3] / (sigma[0] + sigma[1] + sigma[2] + sigma[3]);
 
         System.out.println("\nКритерій Кохрена: " + Math.round(Gp * 10000) / 10000.0);
 
@@ -187,7 +187,7 @@ class Experiment {
         else
             System.out.println("\nДисперсія неоднорідна");
 
-        double Sb = (Sigma[0] + Sigma[1] + Sigma[2] + Sigma[3]) / 4.0;
+        double Sb = (sigma[0] + sigma[1] + sigma[2] + sigma[3]) / 4.0;
         double Sbs = Math.sqrt(Sb / 20.0);
 
         double beta0 = (averageY[0] + averageY[1] + averageY[2] + averageY[3]) / 4.0;
@@ -196,22 +196,22 @@ class Experiment {
         double beta3 = (averageY[0] * plan[0][2] + averageY[1] * plan[1][2] + averageY[2] * plan[2][2] + averageY[3] * plan[3][2]) / 4.0;
 
         double[] t = new double[4];
-        double[] t_round = t;
+        double[] tRound = t;
 
         t[0] = Math.abs(beta0) / Sbs;
-        t_round[0] = Math.round(t[0] * 100000) / 100000.0;
+        tRound[0] = Math.round(t[0] * 100000) / 100000.0;
         t[1] = Math.abs(beta1) / Sbs;
-        t_round[1] = Math.round(t[1] * 100000) / 100000.0;
+        tRound[1] = Math.round(t[1] * 100000) / 100000.0;
         t[2] = Math.abs(beta2) / Sbs;
-        t_round[2] = Math.round(t[2] * 100000) / 100000.0;
+        tRound[2] = Math.round(t[2] * 100000) / 100000.0;
         t[3] = Math.abs(beta3) / Sbs;
-        t_round[3] = Math.round(t[3] * 100000) / 100000.0;
+        tRound[3] = Math.round(t[3] * 100000) / 100000.0;
 
         System.out.println();
         System.out.println("Критерій Стьюдента:");
 
         for (int i = 0; i < 4; i++)
-            System.out.printf("t%d = %f", i + 1, t_round[i]);
+            System.out.printf("t%d = %f", i + 1, tRound[i]);
 
         double[] b = {b0, b1, b2, b3};
 
@@ -260,8 +260,9 @@ class Experiment {
         for (int i = 0; i < 4; i++)
             System.out.printf("Y%d = %f\n", (i + 1), Math.round(100 * (Yj[i])) / 100.0);
 
-        double[] fisher = { 4.5, 3.6, 3.2, 3.0 };
+        long startTimeCount = System.nanoTime();
 
+        double[] fisher = { 4.5, 3.6, 3.2, 3.0 };
         double Sad = 0;
 
         for (int i = 0; i < 4; i++)
@@ -277,6 +278,9 @@ class Experiment {
             System.out.println("\nРівняння регресії адекватне при рівні значимості 5%.");
         else
             System.out.println("\nРівняння регресії неадекватне при рівні значимості 5%");
+
+        long endTimeCount = System.nanoTime();
+        System.out.printf("\nЧас обчислення критерію Фішера: %d ns\n", (endTimeCount - startTimeCount));
     }
 
     public double determinant3(
