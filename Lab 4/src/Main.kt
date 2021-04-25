@@ -153,25 +153,35 @@ fun main() {
 
                 mx[i] = sum / 4
             }
+
             sum = 0.0
+
             for (i in 0..3) {
                 sum += yAverage[i]
             }
+
             my = sum / 4
+
             for (i in 0..2) {
                 sum = 0.0
+
                 for (j in 0..3) {
                     sum += xArray[j][i] * yAverage[j]
                 }
+
                 a[i] = sum / 4
             }
+
             for (i in 0..2) {
                 sum = 0.0
+
                 for (j in 0..3) {
                     sum += Math.pow(xArray[j][i].toDouble(), 2.0)
                 }
+
                 aCoef[i][i] = sum / 4
             }
+
             aCoef[1][0] =
                 (xArray[0][0] * xArray[0][1] + xArray[1][0] * xArray[1][1] + xArray[2][0] * xArray[2][1] + xArray[3][0] * xArray[3][1]) / 4.0
             aCoef[0][1] = aCoef[1][0]
