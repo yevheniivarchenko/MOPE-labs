@@ -244,19 +244,22 @@ fun main() {
             if (bArray[3] < 0) print(" - ") else print(" + ")
             System.out.printf("%.2f * x3\n", abs(bArray[3]))
             println("\nПеревірка: ")
+
             var ok = false
             for (i in 0..3) {
-                ok =
-                    (bArray[0] + bArray[1] * xArray[i][0] + bArray[2] * xArray[i][1] + bArray[3] * xArray[i][2]).toFloat() == yAverage[i].toFloat()
+                ok = (bArray[0] + bArray[1] * xArray[i][0] + bArray[2] * xArray[i][1] + bArray[3] * xArray[i][2]).toFloat() == yAverage[i].toFloat()
                 System.out.printf(
                     "%.2f = %.2f\n",
                     bArray[0] + bArray[1] * xArray[i][0] + bArray[2] * xArray[i][1] + bArray[3] * xArray[i][2],
                     yAverage[i]
                 )
             }
-            if (ok) println("\nНатуралізовані коефіцієнти рівняння регресії b0,b1,b2,b3 визначено правильно") else println(
-                "\nНатуралізовані коефіцієнти рівняння регресії b0,b1,b2,b3 визначено неправильно"
-            )
+            if (ok) {
+                println("\nНатуралізовані коефіцієнти рівняння регресії b0, b1, b2, b3 визначено правильно")
+            } else {
+                println("\nНатуралізовані коефіцієнти рівняння регресії b0, b1, b2, b3 визначено неправильно")
+            }
+
             val aNorm = DoubleArray(4)
             sum = 0.0
             for (i in 0..3) {
@@ -285,10 +288,12 @@ fun main() {
                     yAverage[i]
                 )
             }
-            if (ok) println("\nНормовані коефіцієнти рівняння регресії a0,a1,a2,a3 визначено правильно") else println(
-                "\nНормовані коефіцієнти рівняння регресії a0,a1,a2,a3 визначено неправильно"
-            )
 
+            if (ok) {
+                println("\nНормовані коефіцієнти рівняння регресії a0, a1, a2, a3 визначено правильно")
+            } else println(
+                "\nНормовані коефіцієнти рівняння регресії a0, a1, a2, a3 визначено неправильно"
+            )
 
             //критерій Кохрена
             for (i in 0..2) {
@@ -357,7 +362,7 @@ fun main() {
         }
         sBetaSquareAverage = sum / 4
         sSquareBetaS = sBetaSquareAverage / (4.0 * m)
-        sBetaS = Math.sqrt(sSquareBetaS)
+        sBetaS = sqrt(sSquareBetaS)
         val beta = DoubleArray(4)
         for (i in 0..3) {
             sum = 0.0
@@ -375,27 +380,37 @@ fun main() {
             doubleArrayOf(2.306, 2.262, 2.228, 2.201, 2.179, 2.16, 2.145, 2.131, 2.12, 2.11, 2.101, 2.093, 2.086)
         if (f3 > 16) {
             println("Відсутнє значення для такого f3")
-            System.exit(1)
+            exitProcess(1)
         }
+
         val stNow = studentTable[f3 - 8]
         var d = 4
+
+        val insignificant = ArrayList<Double>()
+        val insignificantInteraction = ArrayList<Double>()
+
         if (t[0] < stNow) {
             bArray[0] = 0.0
+            insignificant.add(t[0])
             d--
         }
         if (t[1] < stNow) {
             bArray[1] = 0.0
+            insignificant.add(t[1])
             d--
         }
         if (t[2] < stNow) {
             bArray[2] = 0.0
+            insignificant.add(t[2])
             d--
         }
         if (t[3] < stNow) {
             bArray[3] = 0.0
+            insignificant.add(t[3])
             d--
         }
-        println("Рівняння регресії після критерію Стьюдента: ")
+
+        println("\nРівняння регресії після критерію Стьюдента: ")
         System.out.printf("y = %.2f", bArray[0])
         if (bArray[1] < 0) print(" - ") else print(" + ")
         System.out.printf("%.2f * x1", abs(bArray[1]))
@@ -723,34 +738,42 @@ fun main() {
 
             if (tInteraction[0] < stInteractionNow) {
                 bNatur[0] = 0.0
+                insignificantInteraction.add(tInteraction[0])
                 d--
             }
             if (tInteraction[1] < stInteractionNow) {
                 bNatur[1] = 0.0
+                insignificantInteraction.add(tInteraction[1])
                 d--
             }
             if (tInteraction[2] < stInteractionNow) {
                 bNatur[2] = 0.0
+                insignificantInteraction.add(tInteraction[2])
                 d--
             }
             if (tInteraction[3] < stInteractionNow) {
                 bNatur[3] = 0.0
+                insignificantInteraction.add(tInteraction[3])
                 d--
             }
             if (tInteraction[4] < stInteractionNow) {
                 bNatur[4] = 0.0
+                insignificantInteraction.add(tInteraction[4])
                 d--
             }
             if (tInteraction[5] < stInteractionNow) {
                 bNatur[5] = 0.0
+                insignificantInteraction.add(tInteraction[5])
                 d--
             }
             if (tInteraction[6] < stInteractionNow) {
                 bNatur[6] = 0.0
+                insignificantInteraction.add(tInteraction[6])
                 d--
             }
             if (tInteraction[7] < stInteractionNow) {
                 bNatur[7] = 0.0
+                insignificantInteraction.add(tInteraction[7])
                 d--
             }
 
@@ -832,5 +855,8 @@ fun main() {
             println("\nРівняння регресії адекватно оригіналу при q = 0.05")
             restartFlag = false
         }
+
+        println("\nНезначимі коефіцієнти (без взаємодії): $insignificant")
+        println("Незначимі коефіцієнти (взаємодія): $insignificantInteraction\n")
     }
 }
