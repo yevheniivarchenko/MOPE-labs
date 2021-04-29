@@ -390,23 +390,23 @@ fun main() {
         val insignificantInteraction = ArrayList<Double>()
 
         if (t[0] < stNow) {
+            insignificant.add(bArray[0])
             bArray[0] = 0.0
-            insignificant.add(t[0])
             d--
         }
         if (t[1] < stNow) {
+            insignificant.add(bArray[1])
             bArray[1] = 0.0
-            insignificant.add(t[1])
             d--
         }
         if (t[2] < stNow) {
+            insignificant.add(bArray[2])
             bArray[2] = 0.0
-            insignificant.add(t[2])
             d--
         }
         if (t[3] < stNow) {
+            insignificant.add(bArray[3])
             bArray[3] = 0.0
-            insignificant.add(t[3])
             d--
         }
 
@@ -737,43 +737,43 @@ fun main() {
             d = 8
 
             if (tInteraction[0] < stInteractionNow) {
+                insignificantInteraction.add(bNatur[0])
                 bNatur[0] = 0.0
-                insignificantInteraction.add(tInteraction[0])
                 d--
             }
             if (tInteraction[1] < stInteractionNow) {
+                insignificantInteraction.add(bNatur[1])
                 bNatur[1] = 0.0
-                insignificantInteraction.add(tInteraction[1])
                 d--
             }
             if (tInteraction[2] < stInteractionNow) {
+                insignificantInteraction.add(bNatur[2])
                 bNatur[2] = 0.0
-                insignificantInteraction.add(tInteraction[2])
                 d--
             }
             if (tInteraction[3] < stInteractionNow) {
+                insignificantInteraction.add(bNatur[3])
                 bNatur[3] = 0.0
-                insignificantInteraction.add(tInteraction[3])
                 d--
             }
             if (tInteraction[4] < stInteractionNow) {
+                insignificantInteraction.add(bNatur[4])
                 bNatur[4] = 0.0
-                insignificantInteraction.add(tInteraction[4])
                 d--
             }
             if (tInteraction[5] < stInteractionNow) {
+                insignificantInteraction.add(bNatur[5])
                 bNatur[5] = 0.0
-                insignificantInteraction.add(tInteraction[5])
                 d--
             }
             if (tInteraction[6] < stInteractionNow) {
+                insignificantInteraction.add(bNatur[6])
                 bNatur[6] = 0.0
-                insignificantInteraction.add(tInteraction[6])
                 d--
             }
             if (tInteraction[7] < stInteractionNow) {
+                insignificantInteraction.add(bNatur[7])
                 bNatur[7] = 0.0
-                insignificantInteraction.add(tInteraction[7])
                 d--
             }
 
