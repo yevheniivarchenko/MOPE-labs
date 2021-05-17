@@ -16,6 +16,9 @@ x_average_min = sum([x[0] for x in x_values]) / 3
 y_max = 200 + int(x_average_max)
 y_min = 200 + int(x_average_min)
 
+insignificant = []
+
+
 def s_kv(y, y_average, n, m):
     res = []
     for i in range(n):
@@ -193,8 +196,8 @@ def check(X, Y, B, n, m):
     print('\nКритерій Стьюдента:\n', ts)
     res = [t for t in ts if t > t_student]
     final_k = [B[i] for i in range(len(ts)) if ts[i] in res]
-    print('\nКоефіцієнти {} статистично незначущі, тому ми виключаємо їх з рівняння.'.format(
-        [round(i, 3) for i in B if i not in final_k]))
+    print('\nКоефіцієнти {} статистично незначимі, тому ми виключаємо їх з рівняння.'.format([round(i, 3) for i in B if i not in final_k]))
+    insignificant.append([round(i, 3) for i in B if i not in final_k])
 
     y_new = []
     for j in range(n):
@@ -233,4 +236,14 @@ def main(n, m):
 
 
 if __name__ == '__main__':
-    main(15, 3)
+    for i in range(100):
+        main(15, 3)
+
+
+print(f"\nВсі незначимі коефіцієнти за 100 циклів роботи програми: {insignificant}")
+
+insignificant_count = 0
+for array in insignificant:
+    insignificant_count += len(array)
+
+print(f"Кількість незначимих коефіцієнтів за 100 циклів роботи програми: {insignificant_count}")
